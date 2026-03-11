@@ -7,7 +7,9 @@ const RegistrationForm = () => {
     const [formData, setFormData] = useState({
         fullName: '',
         emailAddress: '',
+        emailAddress: '',
         mobileNumber: '',
+        currentRole: 'College Student',
         collegeName: '',
         department: '',
         yearOfStudy: '',
@@ -126,32 +128,48 @@ const RegistrationForm = () => {
             </div>
 
             <div className={styles.section}>
-                <h3>Academic Details</h3>
+                <h3>{formData.currentRole === 'College Student' ? 'Academic Details' : 'Professional / School Details'}</h3>
                 <div className={styles.formGrid}>
                     <div className={styles.inputGroup}>
-                        <label>College Name</label>
-                        <input type="text" name="collegeName" required value={formData.collegeName} onChange={handleChange} placeholder="Enter your college name" />
-                    </div>
-                    <div className={styles.inputGroup}>
-                        <label>Department</label>
-                        <input type="text" name="department" required value={formData.department} onChange={handleChange} placeholder="e.g. CSE, IT, ECE" />
-                    </div>
-                    <div className={styles.inputGroup}>
-                        <label>Year of Study</label>
-                        <select name="yearOfStudy" required value={showCustomYear ? 'Other' : formData.yearOfStudy} onChange={handleSelectChange}>
-                            <option value="">Select Year</option>
-                            <option value="1st Year">1st Year</option>
-                            <option value="2nd Year">2nd Year</option>
-                            <option value="3rd Year">3rd Year</option>
-                            <option value="4th Year">4th Year</option>
-                            <option value="Other">Other</option>
+                        <label>Current Role</label>
+                        <select name="currentRole" required value={formData.currentRole} onChange={handleChange}>
+                            <option value="College Student">College / University Student</option>
+                            <option value="Working Professional">Working Professional</option>
+                            <option value="School Student">School Student</option>
+                            <option value="Tech Enthusiast">Tech Enthusiast / Other</option>
                         </select>
-                        {showCustomYear && (
-                            <input type="text" name="yearOfStudy" required value={formData.yearOfStudy} onChange={handleChange} placeholder="Please specify your year" style={{marginTop: '0.8rem'}} />
-                        )}
                     </div>
+
+                    <div className={styles.inputGroup}>
+                        <label>{formData.currentRole === 'College Student' ? 'College Name' : formData.currentRole === 'Working Professional' ? 'Company Name' : formData.currentRole === 'School Student' ? 'School Name' : 'Organization (if any)'}</label>
+                        <input type="text" name="collegeName" required value={formData.collegeName} onChange={handleChange} placeholder={`Enter your ${formData.currentRole === 'College Student' ? 'college' : formData.currentRole === 'Working Professional' ? 'company' : formData.currentRole === 'School Student' ? 'school' : 'organization'} name`} />
+                    </div>
+
+                    {formData.currentRole === 'College Student' && (
+                        <>
+                            <div className={styles.inputGroup}>
+                                <label>Department</label>
+                                <input type="text" name="department" required value={formData.department} onChange={handleChange} placeholder="e.g. CSE, IT, ECE" />
+                            </div>
+                            <div className={styles.inputGroup}>
+                                <label>Year of Study</label>
+                                <select name="yearOfStudy" required value={showCustomYear ? 'Other' : formData.yearOfStudy} onChange={handleSelectChange}>
+                                    <option value="">Select Year</option>
+                                    <option value="1st Year">1st Year</option>
+                                    <option value="2nd Year">2nd Year</option>
+                                    <option value="3rd Year">3rd Year</option>
+                                    <option value="4th Year">4th Year</option>
+                                    <option value="Other">Other</option>
+                                </select>
+                                {showCustomYear && (
+                                    <input type="text" name="yearOfStudy" required value={formData.yearOfStudy} onChange={handleChange} placeholder="Please specify your year" style={{marginTop: '0.8rem'}} />
+                                )}
+                            </div>
+                        </>
+                    )}
                 </div>
             </div>
+
 
             <div className={styles.section}>
                 <h3>Participation Type</h3>
@@ -267,7 +285,11 @@ const RegistrationForm = () => {
 
             <div className={styles.checkboxGroup}>
                 <input type="checkbox" name="termsAgreed" required checked={formData.termsAgreed} onChange={handleChange} id="terms" />
-                <label htmlFor="terms">I agree that the idea is original and I accept the terms and conditions of Innovathon 2026.</label>
+                <label htmlFor="terms">
+                    I agree that the idea is original and I accept the terms and conditions of Innovathon 2026. 
+                    <br/><br/>
+                    <strong>Important Note:</strong> I acknowledge and agree that if my idea/project is selected or deemed highly valuable, Antigraviity explicitly holds the right to implement, modify, or integrate the submitted concept without any copyright claims or intellectual property disputes by the submitter.
+                </label>
             </div>
 
             <button type="submit" className={`${styles.submitBtn} glow-btn`} disabled={isLoading}>

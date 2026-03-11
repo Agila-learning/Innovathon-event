@@ -4,9 +4,10 @@ const RegistrationSchema = new mongoose.Schema({
     fullName: { type: String, required: true },
     emailAddress: { type: String, required: true },
     mobileNumber: { type: String, required: true },
+    currentRole: { type: String, default: 'College Student' },
     collegeName: { type: String, required: true },
-    department: { type: String, required: true },
-    yearOfStudy: { type: String, required: true },
+    department: { type: String }, // Made optional
+    yearOfStudy: { type: String }, // Made optional
     cityState: { type: String, required: true },
     participationType: { type: String, enum: ['Individual', 'Team of 2'], required: true },
     teamMember2: {
