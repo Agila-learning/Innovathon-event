@@ -1,0 +1,91 @@
+.benefits {
+    padding: 60px 10%;
+    position: relative;
+}
+
+.header {
+    text-align: center;
+    margin-bottom: 5rem;
+}
+
+.header h2 {
+    font-size: 3rem;
+    font-weight: 800;
+    margin-bottom: 1rem;
+}
+
+.header p {
+    color: var(--text-muted);
+    font-size: 1.2rem;
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 2.5rem;
+}
+
+.card {
+    position: relative;
+    padding: 3rem 2rem;
+    overflow: hidden;
+    text-align: center;
+    z-index: 1;
+}
+
+.glow {
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle at center, var(--primary-glow), transparent 60%);
+    opacity: 0;
+    transition: opacity 0.4s ease;
+    z-index: -1;
+    pointer-events: none;
+}
+
+.card:hover .glow {
+    opacity: 0.3;
+}
+
+.card:hover {
+    transform: translateY(-10px);
+    border-color: var(--primary);
+    background: rgba(17, 24, 39, 0.9);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+}
+
+.icon {
+    margin-bottom: 2rem;
+    color: var(--primary);
+    display: flex;
+    justify-content: center;
+    transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.card:hover .icon {
+    transform: scale(1.1) rotate(5deg);
+}
+
+.card h3 {
+    font-size: 1.6rem;
+    margin-bottom: 1rem;
+    color: var(--foreground);
+}
+
+.card p {
+    color: var(--text-muted);
+    line-height: 1.6;
+}
+
+@media (max-width: 768px) {
+    .benefits {
+        padding: 80px 5%;
+    }
+
+    .header h2 {
+        font-size: 2.25rem;
+    }
+}

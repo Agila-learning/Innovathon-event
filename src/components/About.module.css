@@ -1,0 +1,155 @@
+.about {
+    padding: 60px 8%;
+    position: relative;
+    background: var(--background);
+    overflow: hidden;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.badge {
+    display: inline-block;
+    padding: 0.6rem 1.4rem;
+    background: rgba(168, 85, 247, 0.1);
+    border: 1px solid var(--primary);
+    border-radius: 50px;
+    font-size: 0.9rem;
+    color: var(--primary);
+    margin-bottom: 2rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+.container h2 {
+    font-size: 4rem;
+    font-weight: 800;
+    margin-bottom: 3rem;
+    line-height: 1.1;
+}
+
+.mainContent {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    text-align: left;
+    margin-bottom: 3rem;
+}
+
+.description h3 {
+    font-size: 2rem;
+    color: var(--secondary);
+    margin-bottom: 1.5rem;
+}
+
+.description p {
+    font-size: 1.1rem;
+    line-height: 1.8;
+    color: var(--text-muted);
+    margin-bottom: 1.5rem;
+}
+
+.offices {
+    display: flex;
+    gap: 2rem;
+    margin-top: 2rem;
+}
+
+.officeCard {
+    padding: 1.5rem;
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
+    border-radius: 12px;
+    flex: 1;
+}
+
+.officeCard h4 {
+    color: var(--primary);
+    margin-bottom: 0.5rem;
+}
+
+.officeCard p {
+    font-size: 0.9rem;
+    margin: 0;
+}
+
+.quoteCard {
+    display: flex;
+    padding: 4rem;
+    gap: 3rem;
+    text-align: left;
+    align-items: center;
+    background: linear-gradient(135deg, var(--primary-glow), var(--secondary-glow));
+    border: 1px solid var(--card-border);
+    border-radius: 24px;
+}
+
+.quoteItem {
+    flex: 1;
+}
+
+.quoteItem p {
+    font-size: 1.4rem;
+    font-style: italic;
+    font-family: 'Outfit', sans-serif;
+    color: var(--foreground);
+    position: relative;
+    line-height: 1.5;
+}
+
+.quoteItem p::before {
+    content: '"';
+    position: absolute;
+    top: -30px;
+    left: -30px;
+    font-size: 5rem;
+    opacity: 0.1;
+    color: var(--primary);
+}
+
+.divider {
+    width: 2px;
+    height: 100px;
+    background: linear-gradient(to bottom, transparent, var(--card-border), transparent);
+}
+
+@media (max-width: 1024px) {
+    .mainContent {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+    }
+
+    .container h2 {
+        font-size: 3rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .about {
+        padding: 80px 5%;
+    }
+
+    .quoteCard {
+        flex-direction: column;
+        padding: 2.5rem;
+        text-align: center;
+    }
+
+    .divider {
+        width: 80%;
+        height: 1px;
+        margin: 1rem 0;
+    }
+
+    .quoteItem p::before {
+        left: 50%;
+        transform: translateX(-50%);
+    }
+
+    .offices {
+        flex-direction: column;
+    }
+}
