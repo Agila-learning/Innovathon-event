@@ -30,6 +30,8 @@ const RegistrationForm = () => {
 
     const [isLoading, setIsLoading] = useState(false);
     const [isSubmitted, setIsSubmitted] = useState(false);
+    const [showCustomYear, setShowCustomYear] = useState(false);
+    const [showCustomDomain, setShowCustomDomain] = useState(false);
 
     const handleChange = (e) => {
         const { name, value, type, checked, files } = e.target;
@@ -37,6 +39,29 @@ const RegistrationForm = () => {
             ...prev,
             [name]: type === 'checkbox' ? checked : type === 'file' ? files[0] : value,
         }));
+    };
+
+    const handleSelectChange = (e) => {
+        const { name, value } = e.target;
+        if (name === 'yearOfStudy') {
+            if (value === 'Other') {
+                setShowCustomYear(true);
+                setFormData(prev => ({ ...prev, yearOfStudy: '' }));
+            } else {
+                setShowCustomYear(false);
+                setFormData(prev => ({ ...prev, yearOfStudy: value }));
+            }
+        } else if (name === 'domainCategory') {
+            if (value === 'Other') {
+                setShowCustomDomain(true);
+                setFormData(prev => ({ ...prev, domainCategory: '' }));
+            } else {
+                setShowCustomDomain(false);
+                setFormData(prev => ({ ...prev, domainCategory: value }));
+            }
+        } else {
+            setFormData(prev => ({ ...prev, [name]: value }));
+        }
     };
 
     const handleSubmit = async (e) => {
@@ -113,7 +138,7 @@ const RegistrationForm = () => {
                     </div>
                     <div className={styles.inputGroup}>
                         <label>Year of Study</label>
-                        <select name="yearOfStudy" required value={formData.yearOfStudy} onChange={handleChange}>
+                        <select name="yearOfStudy" required value={showCustomYear ? 'Other' : formData.yearOfStudy} onChange={handleSelectChange}>
                             <option value="">Select Year</option>
                             <option value="1st Year">1st Year</option>
                             <option value="2nd Year">2nd Year</option>
@@ -121,6 +146,9 @@ const RegistrationForm = () => {
                             <option value="4th Year">4th Year</option>
                             <option value="Other">Other</option>
                         </select>
+                        {showCustomYear && (
+                            <input type="text" name="yearOfStudy" required value={formData.yearOfStudy} onChange={handleChange} placeholder="Please specify your year" style={{marginTop: '0.8rem'}} />
+                        )}
                     </div>
                 </div>
             </div>
@@ -171,13 +199,16 @@ const RegistrationForm = () => {
                 <div className={styles.formGrid}>
                     <div className={styles.inputGroup}>
                         <label>Domain / Category</label>
-                        <select name="domainCategory" value={formData.domainCategory} onChange={handleChange}>
+                        <select name="domainCategory" required value={showCustomDomain ? 'Other' : formData.domainCategory} onChange={handleSelectChange}>
                             <option value="IT">IT</option>
                             <option value="AI">AI</option>
                             <option value="ML">ML</option>
                             <option value="Data Science">Data Science</option>
                             <option value="Other">Other</option>
                         </select>
+                        {showCustomDomain && (
+                            <input type="text" name="domainCategory" required value={formData.domainCategory} onChange={handleChange} placeholder="Please specify your domain" style={{marginTop: '0.8rem'}} />
+                        )}
                     </div>
                     <div className={styles.inputGroup}>
                         <label>Report Document (Drive/Cloud Link)</label>
@@ -185,11 +216,11 @@ const RegistrationForm = () => {
                     </div>
                     <div className={styles.inputGroup}>
                         <label>GitHub Repository Link</label>
-                        <input type="url" name="githubLink" value={formData.githubLink} onChange={handleChange} placeholder="https://github.com/..." />
+                        <input type="url" name="githubLink" required value={formData.githubLink} onChange={handleChange} placeholder="https://github.com/..." />
                     </div>
                     <div className={styles.inputGroup}>
                         <label>Live Project URL</label>
-                        <input type="url" name="liveProjectUrl" value={formData.liveProjectUrl} onChange={handleChange} placeholder="https://..." />
+                        <input type="url" name="liveProjectUrl" required value={formData.liveProjectUrl} onChange={handleChange} placeholder="https://..." />
                     </div>
                     <div className={styles.inputGroup}>
                         <label>Project Video Link</label>
