@@ -50,7 +50,7 @@ export async function POST(req) {
 
         return NextResponse.json({
             success: true,
-            registrationId: newRegistration._id,
+            registrationId: newRegistration.registrationId,
             status: 'pending_verification'
         }, { status: 201 });
 

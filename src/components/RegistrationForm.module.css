@@ -266,4 +266,21 @@
     .formGrid {
         grid-template-columns: 1fr;
     }
+
+    .paymentContainer {
+        flex-direction: column;
+        gap: 1.5rem;
+        padding: 1.5rem;
+        align-items: center;
+    }
+    
+    .qrImageWrapper {
+        width: 150px;
+        height: 150px;
+    }
+    
+    .paymentInstructions {
+        text-align: center;
+        align-items: center;
+    }
 }
