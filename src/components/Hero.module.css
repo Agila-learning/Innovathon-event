@@ -10,6 +10,43 @@
                 radial-gradient(circle at 80% 70%, rgba(34, 211, 238, 0.15), transparent 50%);
 }
 
+.binaryBg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: space-around;
+    opacity: 0.03;
+    z-index: 1;
+    pointer-events: none;
+    font-family: monospace;
+    font-size: 1.5rem;
+    color: var(--primary);
+}
+
+.binaryColumn {
+    writing-mode: vertical-rl;
+    text-orientation: upright;
+    animation: digitalRain 20s linear infinite;
+}
+
+.binaryColumn:nth-child(2) {
+    animation-delay: -5s;
+    font-size: 2rem;
+    opacity: 0.5;
+}
+
+.binaryColumn:nth-child(3) {
+    animation-delay: -12s;
+}
+
+@keyframes digitalRain {
+    0% { transform: translateY(-100%); }
+    100% { transform: translateY(100vh); }
+}
+
 .container {
     width: 100%;
     max-width: 1400px;
@@ -138,10 +175,29 @@
     justify-content: center;
 }
 
+.connectionsSvg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    pointer-events: none;
+}
+
+.connector {
+    stroke: var(--primary);
+    stroke-width: 2;
+    stroke-dasharray: 10;
+    stroke-dashoffset: 100;
+    opacity: 0.5;
+    filter: drop-shadow(0 0 5px var(--primary-glow));
+}
+
 .mainIconWrapper {
-    width: 200px;
-    height: 200px;
-    background: radial-gradient(circle at center, var(--primary-glow) 0%, transparent 60%);
+    width: 180px;
+    height: 180px;
+    background: radial-gradient(circle at center, rgba(168, 85, 247, 0.2) 0%, transparent 70%);
     border-radius: 50%;
     display: flex;
     align-items: center;
@@ -150,76 +206,88 @@
     animation: mainPulse 4s ease-in-out infinite;
     z-index: 5;
     position: relative;
+    border: 2px solid rgba(168, 85, 247, 0.4);
+    box-shadow: 0 0 40px rgba(168, 85, 247, 0.2), inset 0 0 20px rgba(168, 85, 247, 0.2);
 }
 
 .mainIconWrapper::after {
     content: '';
     position: absolute;
-    width: 100%;
-    height: 100%;
+    width: 120%;
+    height: 120%;
     border: 1px dashed var(--primary);
     border-radius: 50%;
-    opacity: 0.3;
-    animation: spin 20s linear infinite;
+    opacity: 0.4;
+    animation: spin 30s linear infinite;
 }
 
 .mainIcon {
     filter: drop-shadow(0 0 15px var(--primary));
-    transform: scale(1.2);
+    transform: scale(1.4);
 }
 
 .floatingIcon1, .floatingIcon2, .floatingIcon3, .floatingIcon4 {
     position: absolute;
-    background: rgba(33, 45, 69, 0.7);
+    background: rgba(15, 23, 42, 0.8);
     border: 1px solid var(--card-border);
     padding: 1.2rem;
-    border-radius: 16px;
+    border-radius: 50%;
     backdrop-filter: blur(10px);
-    box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5), inset 0 0 15px rgba(255,255,255,0.05);
     display: flex;
     align-items: center;
     justify-content: center;
     z-index: 10;
+    transition: all 0.3s ease;
 }
 
+.floatingIcon1:hover, .floatingIcon2:hover, .floatingIcon3:hover, .floatingIcon4:hover {
+    transform: scale(1.1);
+    border-color: var(--primary);
+    box-shadow: 0 0 30px var(--primary-glow);
+}
+
+/* Positioned to match the SVG lines */
 .floatingIcon1 {
-    top: 60px;
-    left: 40px;
-    color: #f472b6;
-    border-color: rgba(244, 114, 182, 0.3);
+    top: 90px;
+    left: 70px;
+    color: #38bdf8;
+    border-color: rgba(56, 189, 248, 0.4);
     animation: float1 6s ease-in-out infinite;
 }
 
 .floatingIcon2 {
-    bottom: 60px;
-    right: 40px;
-    color: #38bdf8;
-    border-color: rgba(56, 189, 248, 0.3);
+    top: 120px;
+    right: 70px;
+    color: #c084fc;
+    border-color: rgba(192, 132, 252, 0.4);
     animation: float2 7s ease-in-out infinite;
 }
 
 .floatingIcon3 {
-    top: 90px;
-    right: 60px;
-    color: #c084fc;
-    border-color: rgba(192, 132, 252, 0.3);
+    bottom: 120px;
+    right: 50px;
+    color: #f472b6;
+    border-color: rgba(244, 114, 182, 0.4);
     animation: float3 5s ease-in-out infinite;
 }
 
 .floatingIcon4 {
     bottom: 90px;
-    left: 60px;
+    left: 50px;
     color: #a78bfa;
-    border-color: rgba(167, 139, 250, 0.3);
+    border-color: rgba(167, 139, 250, 0.4);
     animation: float4 8s ease-in-out infinite;
 }
 
 @keyframes mainPulse {
     0%, 100% {
         transform: scale(1);
+        box-shadow: 0 0 40px rgba(168, 85, 247, 0.2), inset 0 0 20px rgba(168, 85, 247, 0.2);
     }
     50% {
         transform: scale(1.05);
+        box-shadow: 0 0 60px rgba(168, 85, 247, 0.4), inset 0 0 30px rgba(168, 85, 247, 0.4);
     }
 }
 
@@ -229,20 +297,20 @@
 }
 
 @keyframes float1 {
-    0%, 100% { transform: translateY(0) rotate(0deg); }
-    50% { transform: translateY(-20px) rotate(-10deg); }
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-15px); }
 }
 @keyframes float2 {
-    0%, 100% { transform: translateY(0) rotate(0deg); }
-    50% { transform: translateY(-25px) rotate(10deg); }
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
 }
 @keyframes float3 {
-    0%, 100% { transform: translateY(0) rotate(0deg); }
-    50% { transform: translateY(20px) rotate(15deg); }
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(15px); }
 }
 @keyframes float4 {
-    0%, 100% { transform: translateY(0) rotate(0deg); }
-    50% { transform: translateY(15px) rotate(-15deg); }
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(10px); }
 }
 
 @media (max-width: 1200px) {
@@ -282,8 +350,8 @@
     }
 
     .mainIconWrapper {
-        width: 150px;
-        height: 150px;
+        width: 120px;
+        height: 120px;
     }
 
     .floatingIcon1, .floatingIcon2, .floatingIcon3, .floatingIcon4 {
@@ -291,7 +359,11 @@
     }
 
     .floatingIcon1 { top: 30px; left: 10px; }
-    .floatingIcon2 { bottom: 30px; right: 10px; }
-    .floatingIcon3 { top: 50px; right: 20px; }
-    .floatingIcon4 { bottom: 50px; left: 20px; }
+    .floatingIcon2 { top: 50px; right: 10px; }
+    .floatingIcon3 { bottom: 50px; right: 20px; }
+    .floatingIcon4 { bottom: 30px; left: 20px; }
+    
+    .connectionsSvg {
+        display: none;
+    }
 }

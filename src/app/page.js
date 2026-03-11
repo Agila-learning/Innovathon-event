@@ -23,7 +23,7 @@ export default function Home() {
             <KeyAspects />
             <div id="benefits"><Benefits /></div>
             <AnalysisParams />
-            <ParticipationProcedure />
+            <div id="procedure"><ParticipationProcedure /></div>
             <RegistrationDetails />
             <Rewards />
             <Fees />

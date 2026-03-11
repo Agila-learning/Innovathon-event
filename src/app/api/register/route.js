@@ -11,6 +11,27 @@ export async function POST(req) {
         await dbConnect();
         const body = await req.json();
 
+        // Prevent Duplicate Submissions
+        const existingRegistration = await Registration.findOne({
+            $or: [
+                { mobileNumber: body.mobileNumber },
+                { githubLink: { $ne: null, $ne: '', $eq: body.githubLink } },
+                { liveProjectUrl: { $ne: null, $ne: '', $eq: body.liveProjectUrl } }
+            ]
+        });
+
+        if (existingRegistration) {
+            let duplicateField = 'details';
+            if (existingRegistration.mobileNumber === body.mobileNumber) duplicateField = 'Mobile Number';
+            else if (existingRegistration.githubLink === body.githubLink) duplicateField = 'GitHub Link';
+            else if (existingRegistration.liveProjectUrl === body.liveProjectUrl) duplicateField = 'Live Project URL';
+            
+            return NextResponse.json(
+                { success: false, error: `A registration with this ${duplicateField} already exists.` },
+                { status: 400 }
+            );
+        }
+
         // Generate a unique registration ID
         const registrationId = `INV-${Date.now().toString().slice(-6)}-${Math.floor(1000 + Math.random() * 9000)}`;
 
